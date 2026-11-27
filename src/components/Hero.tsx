@@ -24,7 +24,7 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     image: "/hero/slide-1-v2.webp",
-    mobileImage: "/hero-mobile-6.webp",
+    mobileImage: "/hero-mobile-7.webp",
     alt: "Woman with radiant skin wearing a cream knit wrap",
     eyebrow: "THE BEAUTY EDIT",
     heading: [{ text: "Beauty," }, { text: "Thoughtfully Curated.", italic: true }],
@@ -37,7 +37,7 @@ const SLIDES: Slide[] = [
       "Discover skincare and beauty essentials selected to complement your everyday routine.",
     ctaLabel: "EXPLORE THE COLLECTION",
     ctaHref: "/shop",
-    mobileObjectPosition: "center 20%",
+    mobileObjectPosition: "85% 20%",
   },
   {
     image: "/hero/slide-2.webp",
@@ -54,7 +54,7 @@ const SLIDES: Slide[] = [
       "Explore shampoos, nourishing oils, conditioners and haircare essentials.",
     ctaLabel: "DISCOVER HAIRCARE",
     ctaHref: "/category/haircare",
-    mobileObjectPosition: "center 25%",
+    mobileObjectPosition: "75% 15%",
   },
   {
     image: "/hero/slide-3.webp",

@@ -18,12 +18,12 @@ export default function BrandCollectionSection() {
           <p className="text-xs font-semibold tracking-[0.3em] text-gold">
             FAMILIAR NAMES. FRESH DISCOVERIES.
           </p>
-          <div className="mt-10 flex flex-wrap items-center justify-start gap-x-36 gap-y-4">
+          <div className="mt-10 grid grid-cols-3 gap-x-2 gap-y-3 sm:flex sm:flex-wrap sm:items-center sm:justify-start sm:gap-x-36">
             {BRANDS.map((brand) => (
               <Link
                 key={brand.href}
                 href={brand.href}
-                className="font-display text-xl font-medium text-ink transition-colors hover:text-gold"
+                className="inline-flex w-fit items-center whitespace-nowrap rounded-full border border-ink/10 bg-white/40 px-2.5 py-1.5 font-display text-sm font-medium text-ink shadow-sm backdrop-blur-sm transition-colors hover:border-gold/30 hover:bg-white/70 hover:text-gold sm:rounded-none sm:border-0 sm:bg-transparent sm:px-0 sm:py-0 sm:text-xl sm:shadow-none sm:backdrop-blur-none sm:hover:border-0 sm:hover:bg-transparent"
               >
                 {brand.name}
               </Link>

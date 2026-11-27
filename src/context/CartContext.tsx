@@ -16,6 +16,7 @@ type CartContextValue = {
   totalCount: number;
   addItem: (item: Omit<CartItem, "qty">, qty: number) => void;
   updateQty: (href: string, qty: number) => void;
+  removeItem: (href: string) => void;
   drawerOpen: boolean;
   closeDrawer: () => void;
   activeItem: CartItem | null;
@@ -72,6 +73,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   };
 
+  const removeItem: CartContextValue["removeItem"] = (href) => {
+    setItems((prev) => prev.filter((i) => i.href !== href));
+  };
+
   const totalCount = items.reduce((sum, i) => sum + i.qty, 0);
   const activeItem = items.find((i) => i.href === activeHref) ?? null;
 
@@ -82,6 +87,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         totalCount,
         addItem,
         updateQty,
+        removeItem,
         drawerOpen,
         closeDrawer: () => setDrawerOpen(false),
         activeItem,

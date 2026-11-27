@@ -3,8 +3,9 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Heart, Menu, Search, ShoppingBag, User, X } from "lucide-react";
+import { ChevronDown, Menu, Search, ShoppingBag, User, X } from "lucide-react";
 import { useCart } from "@/context/CartContext";
+import SearchOverlay from "@/components/SearchOverlay";
 
 const LEFT_LINKS = [
   { label: "Home", href: "/" },
@@ -101,6 +102,8 @@ const MEGA_MENUS: Record<string, MegaMenu> = {
 type NavbarProps = {
   /** Renders the nav row with a transparent background so it can float over a hero image. */
   transparent?: boolean;
+  /** Background color of the header/nav row when not transparent. Defaults to cream. */
+  bg?: "cream" | "white";
 };
 
 function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
@@ -189,10 +192,12 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   );
 }
 
-export default function Navbar({ transparent = false }: NavbarProps) {
+export default function Navbar({ transparent = false, bg = "cream" }: NavbarProps) {
+  const bgClass = bg === "white" ? "bg-white" : "bg-cream";
   const [openMenu, setOpenMenu] = useState<string | null>(null);
   const [isClosing, setIsClosing] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { totalCount } = useCart();
 
@@ -226,7 +231,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       className={
         transparent
           ? "absolute inset-x-0 top-0 z-50"
-          : "relative z-50 border-b border-ink/10 bg-cream"
+          : `relative z-50 border-b border-ink/10 ${bgClass}`
       }
     >
       {activeMenu && (
@@ -240,6 +245,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
       )}
 
       <MobileMenu open={mobileOpen} onClose={() => setMobileOpen(false)} />
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       <div className="relative z-50" onMouseLeave={closeMenu}>
         <div className="relative z-50 bg-ink">
@@ -248,22 +254,25 @@ export default function Navbar({ transparent = false }: NavbarProps) {
             Discover beauty essentials for your everyday routine.
           </p>
           <div className="absolute right-4 flex items-center gap-4 text-cream sm:right-10 sm:gap-5">
-            <button aria-label="Search" className="transition-colors hover:text-gold">
+            <button
+              type="button"
+              aria-label="Search"
+              onClick={() => setSearchOpen(true)}
+              className="transition-colors hover:text-gold"
+            >
               <Search size={16} strokeWidth={1.5} />
             </button>
             <button aria-label="Account" className="hidden transition-colors hover:text-gold sm:block">
               <User size={16} strokeWidth={1.5} />
             </button>
-            <button aria-label="Wishlist" className="hidden transition-colors hover:text-gold sm:block">
-              <Heart size={16} strokeWidth={1.5} />
-            </button>
-            <button
+            <Link
+              href="/cart"
               aria-label="Cart"
               className="flex items-center gap-1 transition-colors hover:text-gold"
             >
               <ShoppingBag size={16} strokeWidth={1.5} />
               <span className="text-[11px] text-gold">{totalCount}</span>
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -273,7 +282,7 @@ export default function Navbar({ transparent = false }: NavbarProps) {
           "relative z-50 " +
           (transparent
             ? "border-b border-white/15 bg-white/12 backdrop-blur-md"
-            : "bg-cream")
+            : bgClass)
         }
       >
         <ul className="mx-auto flex max-w-[1800px] items-center justify-between px-6 py-2.5 text-sm font-medium text-ink sm:px-10">

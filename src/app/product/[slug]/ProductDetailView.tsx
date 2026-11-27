@@ -3,9 +3,10 @@
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart, Minus, Plus } from "lucide-react";
+import { Minus, Plus } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import ProductCard from "@/components/ProductCard";
+import ProductReviewsSection from "@/components/ProductReviewsSection";
 import type { Product } from "@/components/ProductCard";
 import { PRODUCT_DETAILS } from "@/data/productDetails";
 import { useCart } from "@/context/CartContext";
@@ -81,7 +82,6 @@ export default function ProductDetailView({
   relatedProducts: Product[];
 }) {
   const [qty, setQty] = useState(1);
-  const [wishlisted, setWishlisted] = useState(false);
   const { addItem } = useCart();
   const detailItems = getDetailItems(product);
   const [detailImage, setDetailImage] = useState(() => getDetailImage(product.image));
@@ -179,7 +179,7 @@ export default function ProductDetailView({
                       name: product.name,
                       brand: product.brand,
                       price: product.price,
-                      image: detailImage,
+                      image: product.image,
                     },
                     qty
                   )
@@ -189,23 +189,6 @@ export default function ProductDetailView({
                 ADD TO CART
               </button>
             </div>
-
-            {/* Wishlist */}
-            <button
-              type="button"
-              onClick={() => setWishlisted((w) => !w)}
-              aria-pressed={wishlisted}
-              className={`mt-4 flex items-center gap-2 text-xs transition-colors ${
-                wishlisted ? "text-gold" : "text-ink/60 hover:text-ink"
-              }`}
-            >
-              <Heart
-                size={14}
-                strokeWidth={1.5}
-                className={wishlisted ? "fill-gold" : ""}
-              />
-              {wishlisted ? "Saved to your wishlist" : "Save to your wishlist"}
-            </button>
 
             <div className="mt-6 space-y-1 border-t border-ink/10 pt-6 text-xs text-ink/40">
               <p>Delivery charges are confirmed after your address is entered.</p>
@@ -241,8 +224,16 @@ export default function ProductDetailView({
         </div>
       </Reveal>
 
+      {/* Description / Reviews */}
+      <div className="border-t border-ink/10 py-16 lg:py-20">
+        <ProductReviewsSection
+          productName={product.name}
+          description={product.description.replace(/\.\.\.$/, "")}
+        />
+      </div>
+
       {/* You may also like */}
-      <div className="border-t border-ink/10">
+      <div className="border-t border-ink/10 bg-cream">
         <div className="mx-auto max-w-[1800px] px-6 pb-20 pt-16 sm:px-10">
           <div className="mb-10 flex items-end justify-between gap-6">
             <div>

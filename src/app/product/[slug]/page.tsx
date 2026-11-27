@@ -42,8 +42,8 @@ export default async function ProductPage({
   const related = getRelatedProducts(slug);
 
   return (
-    <div className="flex min-h-full flex-col bg-cream">
-      <Navbar />
+    <div className="flex min-h-full flex-col bg-white">
+      <Navbar bg="white" />
       <main className="flex-1">
         <ProductDetailView product={product} relatedProducts={related} />
       </main>

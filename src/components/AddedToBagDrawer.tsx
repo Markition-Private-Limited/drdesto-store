@@ -136,7 +136,7 @@ export default function AddedToBagDrawer({
 
         <div className="mt-8 space-y-3">
           <Link
-            href="/shop"
+            href="/cart"
             className="flex w-full items-center justify-center bg-ink py-4 text-xs font-semibold tracking-[0.2em] text-cream transition-opacity hover:opacity-80"
           >
             VIEW BAG

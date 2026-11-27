@@ -1,9 +1,7 @@
 "use client";
 
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Heart } from "lucide-react";
 import Reveal from "@/components/Reveal";
 import { useCart } from "@/context/CartContext";
 
@@ -26,31 +24,16 @@ type ProductCardProps = {
 
 export default function ProductCard({ product, delay = 0 }: ProductCardProps) {
   const available = product.available ?? true;
-  const [wishlisted, setWishlisted] = useState(false);
   const { addItem } = useCart();
 
   return (
-    <Reveal delay={delay} className="group flex h-full flex-col bg-white">
+    <Reveal delay={delay} className="h-full">
+      <div className="group flex h-full flex-col bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">
       <Link href={product.href} className="relative block bg-white">
         <span className="absolute left-3 top-3 z-10 bg-cream px-2 py-1 text-[10px] font-semibold tracking-[0.1em] text-gold">
           SALE
         </span>
-        <button
-          type="button"
-          aria-label="Add to wishlist"
-          aria-pressed={wishlisted}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            setWishlisted((w) => !w);
-          }}
-          className={`absolute right-3 top-3 z-10 transition-colors ${
-            wishlisted ? "text-gold" : "text-ink/70 hover:text-gold"
-          }`}
-        >
-          <Heart size={18} strokeWidth={1.5} className={wishlisted ? "fill-gold" : ""} />
-        </button>
-        <div className="relative h-52 w-full overflow-hidden sm:h-60">
+        <div className="relative h-40 w-full overflow-hidden sm:h-60">
           <Image
             src={product.image}
             alt={product.name}
@@ -62,13 +45,15 @@ export default function ProductCard({ product, delay = 0 }: ProductCardProps) {
       </Link>
 
       <div className="flex flex-1 flex-col px-4 pb-4 pt-4">
-        <p className="text-[11px] font-semibold tracking-[0.15em] text-ink/50">{product.brand}</p>
+        <p className="line-clamp-1 text-[11px] font-semibold tracking-[0.15em] text-ink/50">
+          {product.brand}
+        </p>
         <Link href={product.href}>
           <h3 className="mt-1.5 line-clamp-1 text-base text-ink transition-colors hover:text-gold">
             {product.name}
           </h3>
         </Link>
-        <p className="mt-6 line-clamp-1 text-sm text-ink/50">{product.description}</p>
+        <p className="mt-2 line-clamp-1 text-sm text-ink/50 sm:mt-6">{product.description}</p>
 
         {available ? (
           <div className="mt-1.5 flex items-center gap-3">
@@ -98,18 +83,19 @@ export default function ProductCard({ product, delay = 0 }: ProductCardProps) {
                 1
               );
             }}
-            className="mt-auto w-full border border-ink py-2.5 text-[11px] font-semibold tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-cream"
+            className="mt-1.5 w-full border border-ink py-2.5 text-[11px] font-semibold tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-cream"
           >
             ADD TO CART
           </button>
         ) : (
           <Link
             href={product.href}
-            className="mt-auto block w-full border border-ink py-2.5 text-center text-[11px] font-semibold tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-cream"
+            className="mt-1.5 block w-full border border-ink py-2.5 text-center text-[11px] font-semibold tracking-[0.15em] text-ink transition-colors hover:bg-ink hover:text-cream"
           >
             VIEW PRODUCT
           </Link>
         )}
+      </div>
       </div>
     </Reveal>
   );

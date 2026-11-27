@@ -7,18 +7,18 @@ const CATEGORIES = [
   { name: "Haircare", href: "/category/haircare", image: "/categories/all-haircare.png" },
   { name: "Body care", href: "/category/body-care", image: "/categories/body-care.png" },
   { name: "Sunscreen", href: "/category/sunscreen", image: "/categories/sunscreens.png" },
-  { name: "Face creams", href: "/category/face-creams", image: "/categories/face-creams.png" },
+  { name: "Face creams", href: "/category/skincare/face-creams", image: "/categories/face-creams.png" },
   {
     name: "Serums & treatments",
-    href: "/category/serums-treatments",
+    href: "/category/skincare/serums-treatments",
     image: "/categories/serums-and-treatments.png",
   },
   {
     name: "Shampoos & conditioners",
-    href: "/category/shampoos-conditioners",
+    href: "/category/haircare/shampoos",
     image: "/categories/shampoos.png",
   },
-  { name: "Facial oils", href: "/category/facial-oils", image: "/categories/facial-oils.png" },
+  { name: "Facial oils", href: "/category/skincare/facial-oils", image: "/categories/facial-oils.png" },
 ];
 
 export default function CategorySection() {
@@ -49,20 +49,22 @@ export default function CategorySection() {
             <Link
               key={category.name}
               href={category.href}
-              className="group flex flex-col border border-ink/10 bg-white"
+              className="group flex flex-col overflow-hidden border border-ink/10 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
             >
-              <div className="relative h-44 w-full overflow-hidden">
+              <div className="relative h-44 w-full overflow-hidden bg-white">
                 <Image
                   src={category.image}
                   alt={category.name}
                   fill
                   sizes="(min-width: 1024px) 25vw, 50vw"
-                  className="object-contain p-4 transition-transform duration-300 group-hover:scale-105"
+                  className="object-contain transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
 
               <div className="px-4 py-5">
-                <h3 className="font-display text-2xl text-ink">{category.name}</h3>
+                <h3 className="break-words font-display text-xl text-ink sm:text-2xl">
+                  {category.name}
+                </h3>
                 <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-semibold tracking-[0.15em] text-gold">
                   SHOP CATEGORY
                   <ArrowUpRight size={13} strokeWidth={1.75} />
