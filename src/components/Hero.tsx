@@ -24,7 +24,7 @@ type Slide = {
 const SLIDES: Slide[] = [
   {
     image: "/hero/slide-1-v2.webp",
-    mobileImage: "/hero-mobile-7.webp",
+    mobileImage: "/hero-mobile-8.png",
     alt: "Woman with radiant skin wearing a cream knit wrap",
     eyebrow: "THE BEAUTY EDIT",
     heading: [{ text: "Beauty," }, { text: "Thoughtfully Curated.", italic: true }],
@@ -58,7 +58,7 @@ const SLIDES: Slide[] = [
   },
   {
     image: "/hero/slide-3.webp",
-    mobileImage: "/hero-mobile-5.webp",
+    mobileImage: "/hero-mobile-9.webp",
     alt: "Amber dropper bottle, frosted pump bottle and cream jar styled on stone with an orchid",
     eyebrow: "THE EVERYDAY EDIT",
     heading: [{ text: "Your Daily Ritual," }, { text: "Elevated.", italic: true }],
